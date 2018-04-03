@@ -1,0 +1,15 @@
+.firstRow,
+.secondRow,
+.thirdRow {
+	display: flex;
+}
+.square {
+	height: 50px;
+	width: 50px;
+	border: 1px solid black;
+}
+.square {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
