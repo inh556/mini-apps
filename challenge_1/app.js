@@ -2,10 +2,11 @@ var counter = 0;
 var mark = "X";
 var records = Array(9).fill(null);
 var inputAvailable = true;
-
 var elements = document.getElementsByClassName("square");
+var firstPlayer = prompt("Input your name," , "");
+var secondPlayer = prompt("Input your name," , "");
+document.getElementById("players").innerHTML = firstPlayer + ' VS ' + secondPlayer;
 var winOrNot = function() {
-	console.log('check');
 	var possibleResults = [
 		[0, 1, 2],
 		[3, 4, 5],
@@ -19,7 +20,13 @@ var winOrNot = function() {
 	for(var i = 0; i < possibleResults.length; i++) {
 		[a, b, c] = possibleResults[i];
 		if(records[a] && records[a] === records[b] && records[a] === records[c]) {
-			document.getElementById("warning").innerHTML = 'You win!'
+			var winner = secondPlayer;
+			if(counter % 2) {
+				console.log("working");
+				winner = firstPlayer;
+			}
+			console.log(counter);
+			document.getElementById("warning").innerHTML = winner + ' win!';
 			inputAvailable = false;
 		}
 	}
