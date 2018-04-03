@@ -1,15 +1,47 @@
+#infoArea {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-size: 120%;
+}
+
 .firstRow,
 .secondRow,
 .thirdRow {
 	display: flex;
 }
-.square {
-	height: 50px;
-	width: 50px;
-	border: 1px solid black;
+
+#board {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 10px;
 }
+#players,
+#scores,
+#warning {
+	font-size: 180%;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
 .square {
+	font-size: 200%;
+	height: 80px;
+	width: 80px;
+	border: 1px solid black;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+#footer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+button {
+	height: 30px;
+	width: 80px;
 }
