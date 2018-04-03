@@ -5,6 +5,7 @@ var inputAvailable = true;
 
 var elements = document.getElementsByClassName("square");
 var winOrNot = function() {
+	console.log('check');
 	var possibleResults = [
 		[0, 1, 2],
 		[3, 4, 5],
@@ -22,19 +23,27 @@ var winOrNot = function() {
 			inputAvailable = false;
 		}
 	}
+	if(counter === 9 && inputAvailable === true) {
+		console.log('it is working!')
+		inputAvailable = false;
+		document.getElementById('warning').innerHTML = "Game Over, please restart a new game!";
+	}
 };
 
 var restart = function() {
 	console.log('passed in');
 	for(var i = 0; i < elements.length; i++) {
 		elements[i].innerHTML = "";
+		records = Array(9).fill(null);
+		inputAvailable = true;
+		counter = 0;
 	}
 }
 
 for(var i = 0; i < elements.length; i++) {
 	elements[i].addEventListener("click", function() {
 	if(!inputAvailable) {
-		document.getElementById("warning").innerHTML = "You Win! Please restart a new game!";
+		document.getElementById("warning").innerHTML = "Game over! Please restart a new game!";
 	} else {
 			if(records[Number(this.id)]) {
 			document.getElementById("warning").innerHTML = "You are not allowed to put here!";
@@ -45,9 +54,9 @@ for(var i = 0; i < elements.length; i++) {
 			}
 			this.innerHTML = mark;
 			records[Number(this.id)] = mark;
-			winOrNot();
 			mark = "X";
 	  	counter++;
+	  	winOrNot();
 		}
 	}
 	});
