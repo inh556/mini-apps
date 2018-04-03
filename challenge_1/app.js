@@ -14,7 +14,7 @@ var rounds = 1;
 var displayInfos = function() {
 	document.getElementById("players").innerHTML = firstPlayer + ' VS ' + secondPlayer;
 	document.getElementById("scores").innerHTML = scores[firstPlayer] + ' : ' + scores[secondPlayer];
-	document.getElementById("rounds").innerHTML = rounds;
+	document.getElementById("rounds").innerHTML = "Rounds: " + rounds;
 };
 displayInfos();
 // restart a new game
@@ -27,6 +27,7 @@ var restart = function() {
 	counter = 0;
 	rounds+=1;
 	displayInfos();
+	document.getElementById("warning").innerHTML = "";
 };
 // find who is winner
 var findWinner = function() {
