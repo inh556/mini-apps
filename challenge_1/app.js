@@ -69,7 +69,6 @@ var winOrNot = function() {
 	}
 };
 
-
 // set listener for each square
 for(var i = 0; i < elements.length; i++) {
 	elements[i].addEventListener("click", function() {

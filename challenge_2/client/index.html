@@ -6,19 +6,23 @@
 </head>
 <body>
 	<div id="container">
-		<form action="test" method = "post" id="inputInfo">
-			<input id="inputText" type="text" name="firstname"><br>
-			<input type="submit" value="Submit">
+		<form id="inputInfo">
+			<input id="inputText" type="text" name="inputInfo"><br>
+			<input id="submit" type="submit">
 		</form>
 		<table id="table">
-			<tr class="headerInfo">
-				<th id="firstName" class="displayArea">First Name</th>
-				<th id="lastnNme" class="displayArea">Last Name</th>
-				<th id="country" class="displayArea">Country</th>
-				<th id="city" class="displayArea">City</th>
-				<th id="sales" class="displayArea">Sales</th>
-				<th id="teamSales" class="displayArea">teamSales</th>
-			</tr>
+			<thead>
+				<tr class="headerInfo">
+					<th id="firstName" class="displayArea">First Name</th>
+					<th id="lastnNme" class="displayArea">Last Name</th>
+					<th id="country" class="displayArea">Country</th>
+					<th id="city" class="displayArea">City</th>
+					<th id="sales" class="displayArea">Sales</th>			
+				</tr>
+		</thead>
+		<tbody>
+			<tr id="insertInfo"></tr>
+		</tbody>
 		</table>
 	</div>
 	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
