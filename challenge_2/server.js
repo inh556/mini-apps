@@ -13,6 +13,12 @@ app.get('/', function(req, res) {
   res.send('Hellp world!')
 })
 
+app.post('/', function(req, res) {
+  // for post method
+  const data = JSON.parse(req.body.info);
+  // save to file
+  res.send(data);
+})
 app.listen(PORT, function(){
   console.log(`App is listening on ${PORT}`);
 })
