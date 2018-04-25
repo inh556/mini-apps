@@ -17,7 +17,6 @@ const app = {
   },
   insertToFile: function(data) {
     // with post method, send data to server 
-    alert('insert function working!')
     var test = {'info': data};
     $.ajax({
       url: '/',
@@ -25,6 +24,7 @@ const app = {
       method: "POST",      
       data: JSON.stringify(test),
     }).done(function(res){
+      console.log(res);
     })
   },
   renderDataToScreen: function() {
