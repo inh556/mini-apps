@@ -24,7 +24,7 @@
 try to use new ES6 features,like const, let, arrow function, templete literals
 
 ## How's the mini app look like?
-<img src='../How it looks like/readyToInput.png' alt='readyToInput.png' />
-<img src='../How it looks like/inputData.png' alt='inputData.png.png' />
-<img src='../How it looks like/displayData.png' alt='displayData.png' />
+<img src='./How it looks like/readyToInput.png' alt='readyToInput.png' />
+<img src='./How it looks like/inputData.png' alt='inputData.png.png' />
+<img src='./How it looks like/displayData.png' alt='displayData.png' />
 
