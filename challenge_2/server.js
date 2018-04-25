@@ -11,21 +11,17 @@ app.use(logger('dev'))
 app.use(express.static('./client'));
 
 app.get('/', function(req, res) {
-  res.send('Hellp world!')
+  res.send('Hello world!')
 })
-
 app.post('/', function(req, res) {
-  // for post method
   const data = JSON.parse(req.body.info);
-  // save to file
   formToCsv(data, function(result) {
     res.send(result);
   })
 })
-
 function formToCsv(data, callback) {
   let tHeader = [];
-  let contents = [];
+  let table = [];
   const keys = Object.keys(data);
   for(let key of keys) {
     if(key !== 'children') {
@@ -33,13 +29,14 @@ function formToCsv(data, callback) {
     }
   }
   const header = tHeader.join(',');
-  contents.push(header);
+  table.push(header);
+  
   function handleContent(data) {
     let content = [];
     tHeader.forEach(function(el){
       content.push(data[el]);
     })
-    contents.push(content.join(','));
+    table.push(content.join(','));
     if(data.children) {
       data.children.forEach(function(child) {
         handleContent(child)
@@ -47,8 +44,8 @@ function formToCsv(data, callback) {
     }
   }
   handleContent(data);
-  //const content = contents.join('\n');
-  const response = contents.join('\n');
+
+  const response = table.join('\n');
   callback(response);
 }
 app.listen(PORT, function(){
