@@ -23,7 +23,30 @@ $("#inputArea").submit(function(event) {
 	document.getElementById("firstPlayer").value = "";
 	document.getElementById("secondPlayer").value = "";
 });
-
+var placeMark = function (position) {
+	// conunt for draw
+	// check if available for placing
+	if(inputAvailable) {
+		var column = Number(position[1]);
+		counter +=1;
+			for(var i = board.length -1; i >= 0; i--) {
+				var row = i; 
+				var square = board[row][column];
+				var currentPlayer = counter % 2? firstPlayer:secondPlayer;
+				if(!square) {
+					// display on the board
+					document.getElementById(row + '' + column).innerHTML = currentPlayer.mark;
+					// update board
+					board[row][column] = currentPlayer.mark;
+					checkWin();
+					return;
+				}
+			} 
+		document.getElementById("warning").innerHTML = "No allowed!";
+	} else {
+		$("#warning").text("Gama over, please restart again!");
+	}
+};
 for(var i = 0; i  < board.length; i++) {
 	var $newRow = $(`<div class="rows" id= ${i}></div>`);
 	$("#board").append($newRow);
