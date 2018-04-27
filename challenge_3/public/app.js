@@ -23,6 +23,17 @@ $("#inputArea").submit(function(event) {
 	document.getElementById("firstPlayer").value = "";
 	document.getElementById("secondPlayer").value = "";
 });
+var startNewGame = function() {
+	for(var i = 0; i < board.length; i++) {
+		for(var j = 0; j < board[i].length; j++) {
+			board[i][j] = null;
+			document.getElementById(i +'' + j).innerHTML = "";
+			inputAvailable = true;
+		}
+	}
+	$("#rounds").text("Rounds: " + (rounds+=1));
+	$("#warning").text("");
+};
 var checkDiagnals = function() {
 	for(var i = -1; i <= 3; i++) {
 		var sumOfMarks = 1;
