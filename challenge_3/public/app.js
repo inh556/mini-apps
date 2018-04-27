@@ -23,7 +23,27 @@ $("#inputArea").submit(function(event) {
 	document.getElementById("firstPlayer").value = "";
 	document.getElementById("secondPlayer").value = "";
 });
-
+var checkColumn = function() {
+	for(var i = 0; i < board[0].length; i++) {
+		var sumOfMarks = 1;
+		if(board[board.length - 1][i]) {
+			console.log('test');
+			for(var j = board.length - 2; j >= 0; j--) {		
+				if(board[j][i]) {
+					if(board[j][i] === board[j+1][i]) {
+						sumOfMarks +=1;
+						if(sumOfMarks === 4) {
+							return true;
+						}
+					} else {
+						sumOfMarks = 1;
+					}
+				}
+			}
+		}
+	}
+	return false;
+};
 var checkRows = function() {
 	for(var i = board.length - 1; i >= 0; i--) {
 		var sumOfMarks = 0;
