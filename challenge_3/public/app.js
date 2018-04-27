@@ -27,8 +27,8 @@ $("#inputArea").submit(function(event) {
 	secondPlayer.name = $("#secondPlayer").val();
 	$("#players").text(firstPlayer.name + " VS " + secondPlayer.name);
 	//$("#firstPlayer").text = '';
-	document.getElementById("firstPlayer").value = "";
-	document.getElementById("secondPlayer").value = "";
+
+	$("#firstPlayer, #secondPlayer").val('');
 });
 var startNewGame = function() {
 	for(var i = 0; i < board.length; i++) {
@@ -50,6 +50,8 @@ var checkDiagnals = function() {
 				if(board[j][column] === board[j - 1][column - 1]){
 					sumOfMarks += 1;
 					if(sumOfMarks === 4) {
+						$(`#${j}${column}, #${j - 1}${column - 1}, #${j - 2}${column - 2}, #${j - 3}${column - 3}`).css('background-color', 'green');
+
 						return true;
 					}
 				} else {
@@ -67,6 +69,7 @@ var checkDiagnals = function() {
 				if(board[k][column - 1] === board[k - 1][column]) {
 					sumOfMarks +=1;
 					if(sumOfMarks ===4) {
+						$(`#${k}${column - 1}, #${k - 1}${column}, #${k - 2}${column + 1}, #${k - 3}${column + 2}`).css('background-color', 'green');
 						return true;
 					}
 				} else {
@@ -82,12 +85,12 @@ var checkColumn = function() {
 	for(var i = 0; i < board[0].length; i++) {
 		var sumOfMarks = 1;
 		if(board[board.length - 1][i]) {
-			console.log('test');
 			for(var j = board.length - 2; j >= 0; j--) {		
 				if(board[j][i]) {
 					if(board[j][i] === board[j+1][i]) {
 						sumOfMarks +=1;
 						if(sumOfMarks === 4) {
+							$(`#${j}${i}, #${j + 1}${i}, #${j + 2}${i}, #${j + 3}${i}`).css('background-color', 'green');
 							return true;
 						}
 					} else {
@@ -107,6 +110,7 @@ var checkRows = function() {
 				if(board[i][j] === board[i][j - 1]) {
 					sumOfMarks += 1;
 					if(sumOfMarks === 4) {
+						$(`#${i}${j}, #${i}${j - 1}, #${i}${j - 2}, #${i}${j - 3}`).css('background-color', 'green');
 						return true;
 					}
 				} else {
