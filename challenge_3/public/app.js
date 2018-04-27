@@ -23,6 +23,43 @@ $("#inputArea").submit(function(event) {
 	document.getElementById("firstPlayer").value = "";
 	document.getElementById("secondPlayer").value = "";
 });
+var checkDiagnals = function() {
+	for(var i = -1; i <= 3; i++) {
+		var sumOfMarks = 1;
+		var column = i;
+		for(var j = 1; j < board.length; j ++) {
+			if(board[j][column]) {
+				if(board[j][column] === board[j - 1][column - 1]){
+					sumOfMarks += 1;
+					if(sumOfMarks === 4) {
+						return true;
+					}
+				} else {
+					sumOfMarks = 1;
+				}
+			}
+			column +=1;
+		}
+	}
+	for(var m = 8; m >= 3; m--) {
+		var sumOfMarks = 1;
+		column = m;
+		for(var k = 1; k < board.length; k++) {
+			if(board[k][column - 1]) {
+				if(board[k][column - 1] === board[k - 1][column]) {
+					sumOfMarks +=1;
+					if(sumOfMarks ===4) {
+						return true;
+					}
+				} else {
+					sumOfMarks = 1;
+				}
+			}
+			column -=1;
+		}
+	}
+	return false;
+};
 var checkColumn = function() {
 	for(var i = 0; i < board[0].length; i++) {
 		var sumOfMarks = 1;
