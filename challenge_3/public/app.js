@@ -1,3 +1,10 @@
+// still need to do
+// 1. check draw
+// 2. whos is winner?
+// 3. refactor to with jsx
+// 4. refactor with ES6 syntax
+// 5. save records to files or database
+// maybe more
 var firstPlayer = {name: null, mark: "X", score: 0};
 var secondPlayer = {name: null, mark: "O", score: 0};
 var currentPlayer;
