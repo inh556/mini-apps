@@ -21,23 +21,26 @@ var board = [
 	[null, null, null, null, null,null,null],
 	[null, null, null, null, null,null,null]
 ];
+
+ 
 $("#inputArea").submit(function(event) {
 	event.preventDefault();
 	firstPlayer.name = $("#firstPlayer").val();
 	secondPlayer.name = $("#secondPlayer").val();
 	$("#players").text(firstPlayer.name + " VS " + secondPlayer.name);
 	//$("#firstPlayer").text = '';
-
-	$("#firstPlayer, #secondPlayer").val('');
+	document.getElementById("firstPlayer").value = "";
+	document.getElementById("secondPlayer").value = "";
 });
 var startNewGame = function() {
 	for(var i = 0; i < board.length; i++) {
 		for(var j = 0; j < board[i].length; j++) {
-			board[i][j] = null;
-			document.getElementById(i +'' + j).innerHTML = "";
-			inputAvailable = true;
+			board[i][j] = null;	
 		}
 	}
+	
+	$(".squares").html("").css("background-color", "transparent");
+	inputAvailable = true;
 	$("#rounds").text("Rounds: " + (rounds+=1));
 	$("#warning").text("");
 };
