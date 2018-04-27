@@ -28,9 +28,8 @@ $("#inputArea").submit(function(event) {
 	firstPlayer.name = $("#firstPlayer").val();
 	secondPlayer.name = $("#secondPlayer").val();
 	$("#players").text(firstPlayer.name + " VS " + secondPlayer.name);
-	//$("#firstPlayer").text = '';
-	document.getElementById("firstPlayer").value = "";
-	document.getElementById("secondPlayer").value = "";
+	$("#firstPlayer, #secondPlayer").val("");
+	
 });
 var startNewGame = function() {
 	for(var i = 0; i < board.length; i++) {
