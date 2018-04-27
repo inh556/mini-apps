@@ -1,6 +1,6 @@
 // still need to do
 // 1. check draw
-// 2. whos is winner?
+// 2. whos is winner? (done!)
 // 3. refactor to with jsx
 // 4. refactor with ES6 syntax
 // 5. save records to files or database
