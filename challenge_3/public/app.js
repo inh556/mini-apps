@@ -23,6 +23,24 @@ $("#inputArea").submit(function(event) {
 	document.getElementById("firstPlayer").value = "";
 	document.getElementById("secondPlayer").value = "";
 });
+var caculateWin = function() {
+	return checkColumn() || checkRows() || checkDiagnals();
+}
+var checkWin = function() {
+	if(caculateWin()) {
+		// announce win
+		$("#warning").text("Winner is " + winner.name);
+		inputAvailable = false;
+		winner.score +=1;
+		console.log('winner score' + winner.score)
+		// set next firstmover
+		//firstmover = winner;
+		// update rounds 
+		return true;
+	} else {
+		return false;
+	}
+}
 var placeMark = function (position) {
 	// conunt for draw
 	// check if available for placing
