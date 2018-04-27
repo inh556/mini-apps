@@ -7,9 +7,10 @@
 // maybe more
 var firstPlayer = {name: null, mark: "X", score: 0};
 var secondPlayer = {name: null, mark: "O", score: 0};
-var currentPlayer;
-var winner = firstPlayer;
+var winner;
 var firstmover = firstPlayer;
+var secondMover = secondPlayer;
+var currentMover;
 var rounds =0;
 var counter = 0;
 var inputAvailable = true;
@@ -37,11 +38,13 @@ var startNewGame = function() {
 			board[i][j] = null;	
 		}
 	}
+	$("#scores").html(`${firstPlayer.score} : ${secondPlayer.score}`);
 	
-	$(".squares").html("").css("background-color", "transparent");
 	inputAvailable = true;
-	$("#rounds").text("Rounds: " + (rounds+=1));
+	counter = 0;
 	$("#warning").text("");
+	$("#rounds").text("Rounds: " + (rounds+=1));
+	$(".squares").html("").css("background-color", "transparent");
 };
 var checkDiagnals = function() {
 	for(var i = -1; i <= 3; i++) {
@@ -130,13 +133,11 @@ var caculateWin = function() {
 var checkWin = function() {
 	if(caculateWin()) {
 		// announce win
+    winner = currentMover;
+    console.log(winner.name);
 		$("#warning").text("Winner is " + winner.name);
 		inputAvailable = false;
 		winner.score +=1;
-		console.log('winner score' + winner.score)
-		// set next firstmover
-		//firstmover = winner;
-		// update rounds 
 		return true;
 	} else {
 		return false;
@@ -146,22 +147,26 @@ var checkWin = function() {
 var placeMark = function (position) {
 	// conunt for draw
 	// check if available for placing
+	if(winner === secondPlayer) {
+		firstmover = secondPlayer;
+		secondMover = firstPlayer;
+	}
 	if(inputAvailable) {
 		var column = Number(position[1]);
 		counter +=1;
-			for(var i = board.length -1; i >= 0; i--) {
-				var row = i; 
-				var square = board[row][column];
-				var currentPlayer = counter % 2? firstPlayer:secondPlayer;
-				if(!square) {
-					// display on the board
-					document.getElementById(row + '' + column).innerHTML = currentPlayer.mark;
-					// update board
-					board[row][column] = currentPlayer.mark;
-					checkWin();
-					return;
-				}
-			} 
+		for(var i = board.length -1; i >= 0; i--) {
+			var row = i; 
+			var square = board[row][column];
+			currentMover = counter % 2? firstmover:secondMover;
+			if(!square) {
+				// display on the board
+				document.getElementById(row + '' + column).innerHTML = currentMover.mark;
+				// update board
+				board[row][column] = currentMover.mark;
+				checkWin();
+				return;
+			}
+		} 
 		document.getElementById("warning").innerHTML = "No allowed!";
 	} else {
 		$("#warning").text("Gama over, please restart again!");
