@@ -23,9 +23,29 @@ $("#inputArea").submit(function(event) {
 	document.getElementById("firstPlayer").value = "";
 	document.getElementById("secondPlayer").value = "";
 });
+
+var checkRows = function() {
+	for(var i = board.length - 1; i >= 0; i--) {
+		var sumOfMarks = 0;
+		for(var j = 0; j < board[0].length; j++) {	
+			if(board[i][j]){
+				if(board[i][j] === board[i][j - 1]) {
+					sumOfMarks += 1;
+					if(sumOfMarks === 4) {
+						return true;
+					}
+				} else {
+					sumOfMarks = 1;
+				}
+			}
+		}
+	}
+	return false;
+};
+
 var caculateWin = function() {
 	return checkColumn() || checkRows() || checkDiagnals();
-}
+};
 var checkWin = function() {
 	if(caculateWin()) {
 		// announce win
@@ -40,7 +60,8 @@ var checkWin = function() {
 	} else {
 		return false;
 	}
-}
+};
+
 var placeMark = function (position) {
 	// conunt for draw
 	// check if available for placing
