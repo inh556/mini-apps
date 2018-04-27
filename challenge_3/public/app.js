@@ -14,3 +14,12 @@ var board = [
 	[null, null, null, null, null,null,null],
 	[null, null, null, null, null,null,null]
 ];
+$("#inputArea").submit(function(event) {
+	event.preventDefault();
+	firstPlayer.name = $("#firstPlayer").val();
+	secondPlayer.name = $("#secondPlayer").val();
+	$("#players").text(firstPlayer.name + " VS " + secondPlayer.name);
+	//$("#firstPlayer").text = '';
+	document.getElementById("firstPlayer").value = "";
+	document.getElementById("secondPlayer").value = "";
+})
