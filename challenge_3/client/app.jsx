@@ -42,7 +42,7 @@ function Board(props){
   )
 }
 function Warning(props) {
-  return <div id="warning"></div>
+  return <div id="warning">{props.warning}</div>
 }
 class App extends React.Component {
   constructor(props) {
@@ -59,6 +59,7 @@ class App extends React.Component {
       winner: null,
       counter: 1,
       inputAvailable:true,
+      warning: '',
       // shoud figure it out why Array.fill(Array.fill(null))is not working for two dimension array
       board: [
         [null, null, null, null, null,null,null],
@@ -76,7 +77,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-
+    //this.startNewGame();
   }
   handleSubmit(e) {
     e.preventDefault();
@@ -85,6 +86,12 @@ class App extends React.Component {
     this.setState({[e.target.id]: e.target.value})
   }
   startNewGame() {
+    
+    // reset board
+    // reset record borad
+    // reset firstmover
+    // reset currentmover
+    this.setState({inputAvailable: true});
   }
   checkRows() {
     const board = this.state.board;
@@ -169,14 +176,15 @@ class App extends React.Component {
     console.log(this.state.counter);
     if(this.checkColomns() || this.checkDiagnals() || this.checkRows()) {
       this.setState({winner: this.state.currentPlayer});
-      this.setState({inputAvailable: false},() => {
-        alert("winner!");
-        return true;
-      });
-      
+      this.setState({inputAvailable: false}); 
+      return true;
     }
     if(this.state.counter === 42) {
       // warning Draw!
+      // set inputavaiable to false;
+      // set warning 
+      this.setState({warnnign: "Draw!"})
+      this.setState({inputAvailable: false})
     }
     return false;
   }
@@ -199,9 +207,17 @@ class App extends React.Component {
       }
       this.setState({board: board});
       this.setState({counter: this.state.counter + 1});
-      this.isWin();
+      if(this.isWin()) {
+        // warning winner!
+        // set winner
+        // set winner's score
+        // 
+        this.setState({warning: "winner is Yanbin"});
+        
+      }
     } else {
-      //  wanning
+      //  wanning restart new game
+      this.setState({warning: "Please restart a new game!"});
     }
   }
   render() {
@@ -215,8 +231,8 @@ class App extends React.Component {
           score2 = {this.state.score2}
         />
         <Board board={this.state.board} onClick={this.handleSquare}/>
-        <Warning />
-        <button id="newGame" type="button"  >Start A new Game!</button>
+        <Warning warning={this.state.warning}/>
+        <button id="newGame" type="button" onClick={this.startNewGame} >Start A new Game!</button>
       </div>
     )
   }
