@@ -13,8 +13,8 @@ function Players(props) {
 function InfoArea(props) {
   return (
     <div id="infoArea">
-      <div id="players">{props.firstPlayer} VS {props.secondPlayer}</div>
-      <div id="scores">{props.score1} : {props.score2}</div>
+      <div id="players">{props.firstPlayer.name} VS {props.secondPlayer.name}</div>
+      <div id="scores">{props.firstPlayer.score} : {props.secondPlayer.score}</div>
       <div id="turn"></div>
     </div>
   )
@@ -48,15 +48,10 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstPlayer:'',
-      test: {name: null, score: 0, mark: 'X'},
-      secondPlayer:'',
-      score1: 0,
-      score2: 0,
-      mark1: 'X',
-      mark2: 'O',
-      currentPlayer: null,
-      winner: null,
+      firstPlayer: {name: null, score: 0, mark: 'X'},
+      secondPlayer: {name: null, score: 0, mark: 'O'},
+      firstMover: null,
+      winner: '',
       counter: 1,
       inputAvailable:true,
       warning: '',
@@ -81,17 +76,28 @@ class App extends React.Component {
   }
   handleSubmit(e) {
     e.preventDefault();
+
   }
   handleChange(e) {
-    this.setState({[e.target.id]: e.target.value})
+    const player = this.state[e.target.id];
+    player.name = e.target.value;
+    this.setState({[e.target.id]: player})
   }
   startNewGame() {
-    
     // reset board
     // reset record borad
     // reset firstmover
     // reset currentmover
     this.setState({inputAvailable: true});
+    const board = this.state.board;
+    for(let i = 0; i < board.length; i++) {
+      for(let j = 0; j < board[i].length; j++) {
+        board[i][j] = null;
+      }
+    }
+   this.setState({counter: 1});
+   this.setState({warning: ''});
+   console.log(this.state);
   }
   checkRows() {
     const board = this.state.board;
@@ -179,46 +185,53 @@ class App extends React.Component {
       return true;
     }
     if(this.state.counter === 42) {
-      // warning Draw!
-      // set inputavaiable to false;
-      // set warning 
       this.setState({warnnign: "Draw!"})
       this.setState({inputAvailable: false})
     }
     return false;
   }
-
+  checkWinner() {
+    if(this.state.firstMover === this.state.secondPlayer) {
+      return this.state.counter % 2? this.state.secondPlayer : this.state.firstPlayer
+    } else {
+      return this.state.counter % 2? this.state.firstPlayer : this.state.secondPlayer;
+    }
+  }
   handleSquare(e) {
-    const test = this.state.test;
-    test.name = 'Yanbin';
-    this.setState({test: test});
-    this.setState({winner: test});
     const id = e.target.id;
     let board = this.state.board;
-    const mark = this.state.counter % 2? 'X' : 'O';
+    let mark;
+    if(this.state.firstMover === this.state.secondPlayer) {
+      mark = this.state.counter % 2? 'O' :'X';
+    } else {
+      mark = this.state.counter % 2? 'X' : 'O';
+    }
+     
     if(this.state.inputAvailable) {
       for(let i = board.length - 1; i >= 0; i--) {
         if(!board[i][id[1]]) {
           board[i][id[1]] = mark;
+          this.setState({counter: this.state.counter + 1});
           break;
         }
         // why can I not put "break" out of if statement?
       }
-      this.setState({board: board});
-      this.setState({counter: this.state.counter + 1});
+      
       if(this.isWin()) {
-        // warning winner!
-        // set winner
-        // set winner's score
-        // 
-        this.setState({score1: this.state.score1 + 1})
-        this.setState({warning: "winner is Yanbin"});
-        
+        const winner = this.checkWinner();
+        winner.score += 1;
+        this.setState({firstMover: winner});
+        // async, so I should use callback to display the winner
+        // may there is a better way to do this, figure out later
+        this.setState({winner: winner.name}, function() {
+          this.setState({warning: "winner is" + this.state.winner});
+        });
       }
     } else {
       //  wanning restart new game
       this.setState({warning: "Please restart a new game!"});
     }
+    console.log(this.state.counter)
   }
   render() {
     return (
@@ -227,8 +240,6 @@ class App extends React.Component {
         <InfoArea 
           firstPlayer={this.state.firstPlayer}
           secondPlayer={this.state.secondPlayer}
-          score1 = {this.state.score1}
-          score2 = {this.state.score2}
         />
         <Board board={this.state.board} onClick={this.handleSquare}/>
         <Warning warning={this.state.warning}/>
