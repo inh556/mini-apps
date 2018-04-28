@@ -107,16 +107,13 @@ class App extends React.Component {
   }
   checkColomns() {
     const board = this.state.board;
-    console.log(board);
     for(var i = 0; i < board[0].length; i++) {
       var sumOfMarks = 1;
       if (board[board.length - 1][i]) {
         for (var j = board.length - 2; j >= 0; j--) {        
           if (board[j][i]) {
             if (board[j][i] === board[j+1][i]) {
-              console.log(j + '' + i);
               sumOfMarks +=1;
-              console.log(sumOfMarks);
               if(sumOfMarks === 4) {
                 // color
                 return true;
@@ -168,13 +165,20 @@ class App extends React.Component {
     }
     return false; 
   }
-  checkWin() {
-
+  isWin() {
+    console.log(this.state.counter);
     if(this.checkColomns() || this.checkDiagnals() || this.checkRows()) {
       this.setState({winner: this.state.currentPlayer});
-      this.setState({inputAvailable: false});
-      alert('winner');
+      this.setState({inputAvailable: false},() => {
+        alert("winner!");
+        return true;
+      });
+      
     }
+    if(this.state.counter === 42) {
+      // warning Draw!
+    }
+    return false;
   }
 
   handleSquare(e) {
@@ -185,16 +189,20 @@ class App extends React.Component {
     const id = e.target.id;
     let board = this.state.board;
     const mark = this.state.counter % 2? 'X' : 'O';
-    for(let i = board.length - 1; i >= 0; i--) {
-      if(!board[i][id[1]]) {
-        board[i][id[1]] = mark;
-        break;
+    if(this.state.inputAvailable) {
+      for(let i = board.length - 1; i >= 0; i--) {
+        if(!board[i][id[1]]) {
+          board[i][id[1]] = mark;
+          break;
+        }
+        // why can I not put "break" out of if statement?
       }
-      // why can I not put "break" out of if statement?
+      this.setState({board: board});
+      this.setState({counter: this.state.counter + 1});
+      this.isWin();
+    } else {
+      //  wanning
     }
-    this.setState({board: board});
-    this.setState({counter: this.state.counter + 1});
-    this.checkWin();
   }
   render() {
     return (
