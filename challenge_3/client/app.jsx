@@ -49,11 +49,13 @@ class App extends React.Component {
     super(props);
     this.state = {
       firstPlayer:'',
+      test: {name: null, score: 0, mark: 'X'},
       secondPlayer:'',
       score1: 0,
       score2: 0,
       mark1: 'X',
       mark2: 'O',
+      currentPlayer: null,
       winner: null,
       counter: 1,
       inputAvailable:true,
@@ -84,11 +86,102 @@ class App extends React.Component {
   }
   startNewGame() {
   }
+  checkRows() {
+    const board = this.state.board;
+    for(let i = board.length - 1; i >= 0; i--) {
+      let sumOfMarks = 0;
+      for(let j = 0; j < board[0].length; j++) {    
+        if(board[i][j]){
+          if(board[i][j] === board[i][j - 1]) {
+            sumOfMarks += 1;
+              if(sumOfMarks === 4) {
+                return true;
+              }
+          } else {
+            sumOfMarks = 1;
+          }
+        }
+      }
+    }
+    return false;
+  }
+  checkColomns() {
+    const board = this.state.board;
+    console.log(board);
+    for(var i = 0; i < board[0].length; i++) {
+      var sumOfMarks = 1;
+      if (board[board.length - 1][i]) {
+        for (var j = board.length - 2; j >= 0; j--) {        
+          if (board[j][i]) {
+            if (board[j][i] === board[j+1][i]) {
+              console.log(j + '' + i);
+              sumOfMarks +=1;
+              console.log(sumOfMarks);
+              if(sumOfMarks === 4) {
+                // color
+                return true;
+              }
+            } else {
+              sumOfMarks = 1;
+            }
+          }
+        }
+      }
+    }
+    return false;
+  }
+  checkDiagnals() {
+    const board = this.state.board;
+    for(var i = -1; i <= 3; i++) {
+      var sumOfMarks = 1;
+      var column = i;
+      for(var j = 1; j < board.length; j ++) {
+        if(board[j][column]) {
+            if(board[j][column] === board[j - 1][column - 1]){
+                sumOfMarks += 1;
+                if(sumOfMarks === 4) {
+                return true;
+                }
+            } else {
+                sumOfMarks = 1;
+            }
+        }
+        column +=1;
+      }
+    }
+    for(var m = 8; m >= 3; m--) {
+      var sumOfMarks = 1;
+      column = m;
+      for(var k = 1; k < board.length; k++) {
+        if(board[k][column - 1]) {
+          if(board[k][column - 1] === board[k - 1][column]) {
+            sumOfMarks +=1;
+            if(sumOfMarks ===4) {
+              return true;
+            }
+          } else {
+            sumOfMarks = 1;
+          }
+        }
+      column -=1;
+      }
+    }
+    return false; 
+  }
   checkWin() {
 
+    if(this.checkColomns() || this.checkDiagnals() || this.checkRows()) {
+      this.setState({winner: this.state.currentPlayer});
+      this.setState({inputAvailable: false});
+      alert('winner');
+    }
   }
 
   handleSquare(e) {
+    const test = this.state.test;
+    test.name = 'Yanbin';
+    this.setState({test: test});
+    this.setState({winner: test});
     const id = e.target.id;
     let board = this.state.board;
     const mark = this.state.counter % 2? 'X' : 'O';
@@ -101,6 +194,7 @@ class App extends React.Component {
     }
     this.setState({board: board});
     this.setState({counter: this.state.counter + 1});
+    this.checkWin();
   }
   render() {
     return (
