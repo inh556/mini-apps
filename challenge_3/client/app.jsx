@@ -22,9 +22,6 @@ function InfoArea(props) {
 
 function Square(props) {
   const row = props.row;
-  const hquares = row.map((square, index) => {
-    console.log(square);
-  });
   const squares = row.map((square, index) =>
    <div key={index} id={props.id + index.toString()} name={square} className="square">{square}</div>
 )
@@ -58,7 +55,7 @@ class App extends React.Component {
       mark1: 'X',
       mark2: 'O',
       winner: null,
-      counter: 0,
+      counter: 1,
       inputAvailable:true,
       // shoud figure it out why Array.fill(Array.fill(null))is not working for two dimension array
       board: [
@@ -87,12 +84,23 @@ class App extends React.Component {
   }
   startNewGame() {
   }
+  checkWin() {
+
+  }
+
   handleSquare(e) {
-    var id = e.target.id;
-    var board = this.state.board;
-    board[id[0]][id[1]] = 'X';
+    const id = e.target.id;
+    let board = this.state.board;
+    const mark = this.state.counter % 2? 'X' : 'O';
+    for(let i = board.length - 1; i >= 0; i--) {
+      if(!board[i][id[1]]) {
+        board[i][id[1]] = mark;
+        break;
+      }
+      // why can I not put "break" out of if statement?
+    }
     this.setState({board: board});
-    console.log(this.state.board);
+    this.setState({counter: this.state.counter + 1});
   }
   render() {
     return (
