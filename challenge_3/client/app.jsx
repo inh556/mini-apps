@@ -173,7 +173,6 @@ class App extends React.Component {
     return false; 
   }
   isWin() {
-    console.log(this.state.counter);
     if(this.checkColomns() || this.checkDiagnals() || this.checkRows()) {
       this.setState({winner: this.state.currentPlayer});
       this.setState({inputAvailable: false}); 
@@ -212,6 +211,7 @@ class App extends React.Component {
         // set winner
         // set winner's score
         // 
+        this.setState({score1: this.state.score1 + 1})
         this.setState({warning: "winner is Yanbin"});
         
       }
