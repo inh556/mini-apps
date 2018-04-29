@@ -231,7 +231,6 @@ class App extends React.Component {
       //  wanning restart new game
       this.setState({warning: "Please restart a new game!"});
     }
-    console.log(this.state.counter)
   }
   render() {
     return (

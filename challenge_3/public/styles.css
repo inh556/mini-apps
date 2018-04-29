@@ -21,6 +21,10 @@
 	justify-content: center;
 }
 .square {
+	/*min-height: 40px;
+	min-width: 40px;
+	max-height: 60px;
+	max-width: 60px;*/
 	height: 60px;
 	width: 60px;
 	border: 1px solid black;
@@ -28,55 +32,3 @@
 	justify-content: center;
 	align-items: center;
 }
-
-/*
-#displayArea {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-}
-
-
-
-#infoArea {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin-top:25px;
-}
-form {
-	margin-bottom: 15px;
-}
-.rows {
-	display: flex;
-	justify-content: center;
-}
-#footer {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin-top: 20px;
-	flex-direction: column;
-}
-#warning {
-	text-align: center;
-	margin-bottom: 20px;
-}
-#players,
-#scores,
-#rounds {
-	margin-bottom: 10px;
-	margin-top: 10px;	
-}
-#scores {
-	display: flex;
-	justify-content: center;
-}
-button {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 30px;
-	width: 150px;
-}
-*/
