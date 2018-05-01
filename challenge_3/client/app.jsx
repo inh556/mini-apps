@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 
 function Players(props) {
-  return (
+  return props.started? null : (
     <form id="inputArea" >
       <input type="text" id="firstPlayer" placeholder="enter firstPlayer name" onChange={props.onChange} />
       <input type="text" id="secondPlayer" placeholder="enter secondPlayer name" onChange={props.onChange} />
@@ -55,6 +55,7 @@ class App extends React.Component {
       counter: 1,
       inputAvailable:true,
       warning: '',
+      started: false,
       // shoud figure it out why Array.fill(Array.fill(null))is not working for two dimension array
       board: [
         [null, null, null, null, null,null,null],
@@ -75,6 +76,7 @@ class App extends React.Component {
     //this.startNewGame();
   }
   handleSubmit(e) {
+    this.setState({started: true});
     e.preventDefault();
 
   }
@@ -235,7 +237,7 @@ class App extends React.Component {
   render() {
     return (
       <div id="gameLayout">
-        <Players onChange={this.handleChange} onClick={this.handleSubmit} />
+        <Players onChange={this.handleChange} started={this.state.started} onClick={this.handleSubmit} />
         <InfoArea 
           firstPlayer={this.state.firstPlayer}
           secondPlayer={this.state.secondPlayer}
